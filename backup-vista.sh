@@ -29,6 +29,9 @@ rm -rf /tmp/osehra
 echo "Copying files."
 rsync -a --exclude "/.bash_history" --exclude="/g/*" --exclude="/.gitconfig" --exclude="/.ssh" --exclude "/.viminfo" --exclude "/vista-environment-scripts" /home/osehra/ /tmp/osehra
 
+echo "Cleaning up."
+rm backup/*
+
 echo "Restarting Taskman."
 mumps -dir <<< "S DUZ=1 D ^ZTMB H"
 
