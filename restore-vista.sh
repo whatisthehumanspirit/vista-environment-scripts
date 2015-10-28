@@ -24,7 +24,6 @@ cd /home/osehra
 mv backup/* g/
 
 echo "Reloading environment variables."
-cd /home/osehra
 . ".profile"
 source etc/env
 
