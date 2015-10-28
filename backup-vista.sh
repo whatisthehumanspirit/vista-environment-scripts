@@ -34,4 +34,3 @@ rm backup/*
 
 echo "Restarting Taskman."
 mumps -dir <<< "S DUZ=1 D ^ZTMB H"
-
