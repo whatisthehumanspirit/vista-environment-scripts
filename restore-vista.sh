@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# YOU SHOULD GRACEFULLY STOP TASKMAN BEFORE RUNNING THIS SCRIPT!
+
 # This script will restore your OSEHRA VistA environment using the last backup. Make sure you have a backup.
 
 echo "Restoring your OSEHRA VistA environment using the last backup."
