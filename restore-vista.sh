@@ -7,6 +7,13 @@
 
 echo "Restoring your OSEHRA VistA environment using the last backup."
 
+echo "Killing all MUMPS processes."
+test_list=$(ps -aux | grep '[m]umps' | awk '{print $2}')
+for process in $test_list
+do
+  mupip stop $process
+done
+
 echo "Deleting the current VistA environment."
 shopt -s extglob
 rm -rf /home/osehra/!(.bash_history|.gitconfig|.ssh|.viminfo|vista-environment-scripts)

@@ -19,6 +19,13 @@ rm backup/*
 mupip backup "*" backup/
 cp g/osehra.gld backup/
 
+echo "Killing all MUMPS processes."
+test_list=$(ps -aux | grep '[m]umps' | awk '{print $2}')
+for process in $test_list
+do
+  mupip stop $process
+done
+
 echo "Deleting any previous backup."
 rm -rf /tmp/osehra
 
