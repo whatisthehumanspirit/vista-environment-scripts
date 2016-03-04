@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# YOU SHOULD GRACEFULLY STOP TASKMAN BEFORE RUNNING THIS SCRIPT!
+
 # This script will backup your OSEHRA VistA environment. It will delete any previous backup.
 
 # This step ensures .mje and .mjo files will be created in /home/osehra

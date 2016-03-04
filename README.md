@@ -1,3 +1,3 @@
-# vista-environment-scripts
+# You should gracefully stop Taskman before running either of these scripts!
 
-Scripts to backup and restore an OSEHRA VistA instance.
+The scripts will backup and restore an OSEHRA VistA instance.
