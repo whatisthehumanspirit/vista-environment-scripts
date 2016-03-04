@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # YOU SHOULD GRACEFULLY STOP TASKMAN BEFORE RUNNING THIS SCRIPT!
+# You should also run check-running-processes.sh and stop any processes attached to the current user.
 
 # This script will backup your OSEHRA VistA environment. It will delete any previous backup.
 
@@ -17,13 +18,6 @@ echo "Backing up the GT.M database."
 rm backup/*
 mupip backup "*" backup/
 cp g/osehra.gld backup/
-
-echo "Killing all MUMPS processes."
-test_list=$(ps -aux | grep '[m]umps' | awk '{print $2}')
-for process in $test_list
-do
-  mupip stop $process
-done
 
 echo "Deleting any previous backup."
 rm -rf /tmp/osehra

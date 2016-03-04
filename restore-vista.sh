@@ -1,17 +1,11 @@
 #!/bin/bash
 
 # YOU SHOULD GRACEFULLY STOP TASKMAN BEFORE RUNNING THIS SCRIPT!
+# You should also run check-running-processes.sh and stop any processes attached to the current user.
 
 # This script will restore your OSEHRA VistA environment using the last backup. Make sure you have a backup.
 
 echo "Restoring your OSEHRA VistA environment using the last backup."
-
-echo "Killing all MUMPS processes."
-test_list=$(ps -aux | grep '[m]umps' | awk '{print $2}')
-for process in $test_list
-do
-  mupip stop $process
-done
 
 echo "Deleting the current VistA environment."
 shopt -s extglob
