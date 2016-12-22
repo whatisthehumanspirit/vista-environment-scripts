@@ -1,3 +1,9 @@
-# You should gracefully stop Taskman before running either of these scripts!
+## Backup
 
-The scripts will backup and restore an OSEHRA VistA instance.
+$ .home/osehra/bin/backup-vista.sh
+
+## Restore
+
+$ cd /home/osehra/data/backups/[backup ID]
+$ ./bin/restore-vista.sh
+

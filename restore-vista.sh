@@ -37,10 +37,6 @@ rm /home/oshera/data/journals/*
 echo "Copying files."
 rsync -a . /home/osehra
 
-echo "Restoring the GT.M database."
-cd /home/osehra
-mv backup/* g/
-
 echo "Reloading environment variables."
 . ".profile"
 source etc/env
