@@ -1,26 +1,41 @@
 #!/bin/bash
 
-# YOU SHOULD GRACEFULLY STOP TASKMAN BEFORE RUNNING THIS SCRIPT!
-# You should also run check-running-processes.sh and stop any processes attached to the current user.
+# This script restores a specially configured OSEHRA VistA environment. Future versions will be more generalized and include options.
+# 
+# Journals are not restored.
 
-# This script will restore your OSEHRA VistA environment using the last backup. Make sure you have a backup.
-
-echo "Restoring your OSEHRA VistA environment using the last backup."
+echo "Restoring your OSEHRA VistA environment using this backup."
 
 echo "Killing all MUMPS processes."
-test_list=$(ps -aux | grep '[m]umps' | awk '{print $2}')
-for process in $test_list
+proc_list=$(pgrep mumps)
+for process in $proc_list
+do
+  mupip stop $process
+done
+
+echo "Killing all MUPIP processes."
+proc_list=$(pgrep mupip)
+for process in $proc_list
+do
+  mupip stop $process
+done
+
+echo "Killing all GTMSECSHR processes."
+proc_list=$(pgrep gtmsecshr)
+for process in $proc_list
 do
   mupip stop $process
 done
 
 echo "Deleting the current VistA environment."
 shopt -s extglob
-rm -rf /home/osehra/!(.bash_history|.gitconfig|.ssh|.viminfo|vista-environment-scripts)
+rm -rf /home/osehra/!(.bash_history|data|lib|.ssh|.viminfo|vista-environment-scripts)
 shopt -u extglob
+rm /home/osehra/data/globals/*
+rm /home/oshera/data/journals/*
 
 echo "Copying files."
-rsync -a /tmp/osehra/ /home/osehra
+rsync -a . /home/osehra
 
 echo "Restoring the GT.M database."
 cd /home/osehra
@@ -29,6 +44,9 @@ mv backup/* g/
 echo "Reloading environment variables."
 . ".profile"
 source etc/env
+
+echo "Enabling journaling."
+./bin/enableJournal.sh
 
 echo "Restarting Taskman."
 mumps -dir <<< "S DUZ=1 D ^ZTMB H"

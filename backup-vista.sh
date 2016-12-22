@@ -1,39 +1,24 @@
 #!/bin/bash
 
-# YOU SHOULD GRACEFULLY STOP TASKMAN BEFORE RUNNING THIS SCRIPT!
-# You should also run check-running-processes.sh and stop any processes attached to the current user.
+# This script backs up a specially configured OSEHRA VistA environment. Future versions will be more generalized and include options.
+# 
+# Journals are not preserved.
 
-# This script will backup your OSEHRA VistA environment. It will delete any previous backup.
+username=`whoami`
+hostname=`hostname -f`
+timestamp=`date +%Y%m%d-%H%M%S`
+prefix="$username@$hostname-$timestamp"
 
-# This step ensures .mje and .mjo files will be created in /home/osehra
 cd /home/osehra
+mkdir -p data/backups/$prefix/data/globals
 
-echo "Deleting VistA repositories. You can always git them back."
-rm -rf Dashboard/VistA
-rm -rf Dashboard/VistA-M
+mupip backup -database -noonline "*" data/backups/$prefix/data/globals
 
-echo "Backing up your OSEHRA VistA environment."
-
-echo "Backing up the GT.M database."
-rm backup/*
-mupip backup "*" backup/
-cp g/osehra.gld backup/
-
-echo "Killing all MUMPS processes."
-test_list=$(ps -aux | grep '[m]umps' | awk '{print $2}')
-for process in $test_list
-do
-  mupip stop $process
-done
-
-echo "Deleting any previous backup."
-rm -rf /tmp/osehra
+cp data/globals/osehra.gld data/backups/$prefix/data/globals
 
 echo "Copying files."
-rsync -a --exclude "/.bash_history" --exclude="/g/*" --exclude="/.gitconfig" --exclude="/.ssh" --exclude "/.viminfo" --exclude "/vista-environment-scripts" /home/osehra/ /tmp/osehra
+rsync -a --exclude="/.bash_history" --exclude="/data" --exclude="/lib" \
+    --exclude="/.ssh" --exclude="/.viminfo" /home/osehra/ /home/osehra/data/backups/$prefix/
 
-echo "Cleaning up."
-rm backup/*
-
-echo "Restarting Taskman."
-mumps -dir <<< "S DUZ=1 D ^ZTMB H"
+# echo "Compressing backup."
+# tar czf /home/osehra/data/backups/$prefix.tar.gz /home/osehra/data/backups/$prefix
