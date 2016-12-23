@@ -1,6 +1,6 @@
 ## Backup
 
-$ .home/osehra/bin/backup-vista.sh
+$ ./home/osehra/bin/backup-vista.sh
 
 ## Restore
 

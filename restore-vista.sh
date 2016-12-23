@@ -32,10 +32,10 @@ shopt -s extglob
 rm -rf /home/osehra/!(.bash_history|data|lib|.ssh|.viminfo)
 shopt -u extglob
 rm /home/osehra/data/globals/*
-rm /home/oshera/data/journals/*
+rm /home/osehra/data/journals/*
 
 echo "Copying files."
-rsync -a . /home/osehra
+rsync -a . /home/osehra/
 
 echo "Reloading environment variables."
 . ".profile"
