@@ -37,12 +37,11 @@ rm /home/osehra/data/journals/*
 echo "Copying files."
 rsync -a . /home/osehra/
 
-echo "Reloading environment variables."
-. ".profile"
-source etc/env
+# echo "Reloading environment variables."
+# mupip rundown -relinkctl
 
 echo "Enabling journaling."
 ./bin/enableJournal.sh
 
 echo "Restarting Taskman."
-mumps -dir <<< "S DUZ=1 D ^ZTMB H"
+mumps -dir <<< "D ^ZTMB H"
