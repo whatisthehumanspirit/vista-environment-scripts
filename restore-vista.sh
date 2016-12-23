@@ -29,7 +29,7 @@ done
 
 echo "Deleting the current VistA environment."
 shopt -s extglob
-rm -rf /home/osehra/!(.bash_history|data|lib|.ssh|.viminfo|vista-environment-scripts)
+rm -rf /home/osehra/!(.bash_history|data|lib|.ssh|.viminfo)
 shopt -u extglob
 rm /home/osehra/data/globals/*
 rm /home/oshera/data/journals/*
