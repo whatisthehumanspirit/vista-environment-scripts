@@ -37,8 +37,8 @@ rm /home/osehra/data/journals/*
 echo "Copying files."
 rsync -a . /home/osehra/
 
-# echo "Reloading environment variables."
-# mupip rundown -relinkctl
+echo "Reloading environment variables."
+mupip rundown -relinkctl
 
 echo "Enabling journaling."
 ./bin/enableJournal.sh
