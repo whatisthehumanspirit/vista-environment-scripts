@@ -12,6 +12,7 @@ prefix="$username@$hostname-$timestamp"
 cd /home/osehra
 mkdir -p data/backups/$prefix/data/globals
 
+echo "Backup up globals."
 mupip backup -database -noonline "*" data/backups/$prefix/data/globals
 
 cp data/globals/osehra.gld data/backups/$prefix/data/globals
